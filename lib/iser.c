@@ -991,7 +991,7 @@ iscsi_iser_queue_pdu(struct iscsi_context *iscsi, struct iscsi_pdu *pdu) {
 		return -1;
 	}
 
-	if (iscsi->outqueue != NULL ||
+	if (iscsi->outqueue != NULL || pdu->outdata.data[1] & ISCSI_PDU_SCSI_WRITE ||
 		(iscsi_serial32_compare(pdu->cmdsn, iscsi->maxcmdsn) > 0
 		 && !(pdu->outdata.data[0] & ISCSI_PDU_IMMEDIATE))) {
 		iscsi_add_to_outqueue(iscsi, pdu);
